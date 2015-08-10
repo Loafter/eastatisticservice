@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DCMARCH1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblDICOMStudy">
+          <Key>
+            <PropertyRef Name="Id1" />
+          </Key>
+          <Property Name="Id1" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="00100010" Type="nvarchar" MaxLength="192" />
+          <Property Name="00100020" Type="nvarchar" MaxLength="65" />
+          <Property Name="00100021" Type="nvarchar" MaxLength="65" />
+          <Property Name="00100030" Type="datetime" />
+          <Property Name="00100040" Type="varchar" MaxLength="17" />
+          <Property Name="00080020" Type="datetime" />
+          <Property Name="00080030" Type="datetime" />
+          <Property Name="00080050" Type="nvarchar" MaxLength="17" />
+          <Property Name="00200010" Type="nvarchar" MaxLength="17" />
+          <Property Name="0020000D" Type="varchar" MaxLength="65" Nullable="false" />
+          <Property Name="00201000" Type="varchar" MaxLength="13" />
+          <Property Name="00080090" Type="nvarchar" MaxLength="65" />
+          <Property Name="00080061" Type="varchar" MaxLength="128" />
+          <Property Name="00101000" Type="nvarchar" MaxLength="128" />
+          <Property Name="00081030" Type="nvarchar" MaxLength="65" />
+          <Property Name="00081050" Type="nvarchar" MaxLength="192" />
+          <Property Name="00081060" Type="nvarchar" MaxLength="192" />
+          <Property Name="00080080" Type="nvarchar" MaxLength="65" />
+          <Property Name="00081010" Type="nvarchar" MaxLength="17" />
+          <Property Name="00081040" Type="nvarchar" MaxLength="65" />
+          <Property Name="0032000A" Type="varchar" MaxLength="17" />
+          <Property Name="00321030" Type="nvarchar" MaxLength="65" />
+          <Property Name="00081032" Type="varchar" MaxLength="1600" />
+          <Property Name="DateLastAccessed" Type="datetime" Nullable="false" />
+          <Property Name="StudyState" Type="int" />
+          <Property Name="StudyIdLibrary" Type="int" />
+          <Property Name="AggregateCount2_1" Type="int" />
+          <Property Name="AggregateCount3_1" Type="int" />
+          <Property Name="AggregateCountNotRejected3_1" Type="int" />
+          <Property Name="StudyMediumState" Type="int" />
+          <Property Name="FirstArchiveDate" Type="datetime" />
+          <Property Name="DateLastStudyModification" Type="datetime" Nullable="false" />
+          <Property Name="DateLastFileChange" Type="datetime" Nullable="false" />
+          <Property Name="DateTimeFileLockExpiration" Type="datetime" Nullable="false" />
+          <Property Name="StudyHidden" Type="bit" />
+          <Property Name="SortedModalities" Type="nvarchar" MaxLength="4000" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityContainer Name="DCMARCH1ModelStoreContainer">
+          <EntitySet Name="tblDICOMStudy" EntityType="Self.tblDICOMStudy" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DCMARCH1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblDICOMStudy">
+          <Key>
+            <PropertyRef Name="Id1" />
+          </Key>
+          <Property Name="Id1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="C00100010" Type="String" MaxLength="192" FixedLength="false" Unicode="true" />
+          <Property Name="C00100020" Type="String" MaxLength="65" FixedLength="false" Unicode="true" />
+          <Property Name="C00100021" Type="String" MaxLength="65" FixedLength="false" Unicode="true" />
+          <Property Name="C00100030" Type="DateTime" Precision="3" />
+          <Property Name="C00100040" Type="String" MaxLength="17" FixedLength="false" Unicode="false" />
+          <Property Name="C00080020" Type="DateTime" Precision="3" />
+          <Property Name="C00080030" Type="DateTime" Precision="3" />
+          <Property Name="C00080050" Type="String" MaxLength="17" FixedLength="false" Unicode="true" />
+          <Property Name="C00200010" Type="String" MaxLength="17" FixedLength="false" Unicode="true" />
+          <Property Name="C0020000D" Type="String" MaxLength="65" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="C00201000" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="C00080090" Type="String" MaxLength="65" FixedLength="false" Unicode="true" />
+          <Property Name="C00080061" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="C00101000" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="C00081030" Type="String" MaxLength="65" FixedLength="false" Unicode="true" />
+          <Property Name="C00081050" Type="String" MaxLength="192" FixedLength="false" Unicode="true" />
+          <Property Name="C00081060" Type="String" MaxLength="192" FixedLength="false" Unicode="true" />
+          <Property Name="C00080080" Type="String" MaxLength="65" FixedLength="false" Unicode="true" />
+          <Property Name="C00081010" Type="String" MaxLength="17" FixedLength="false" Unicode="true" />
+          <Property Name="C00081040" Type="String" MaxLength="65" FixedLength="false" Unicode="true" />
+          <Property Name="C0032000A" Type="String" MaxLength="17" FixedLength="false" Unicode="false" />
+          <Property Name="C00321030" Type="String" MaxLength="65" FixedLength="false" Unicode="true" />
+          <Property Name="C00081032" Type="String" MaxLength="1600" FixedLength="false" Unicode="false" />
+          <Property Name="DateLastAccessed" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StudyState" Type="Int32" />
+          <Property Name="StudyIdLibrary" Type="Int32" />
+          <Property Name="AggregateCount2_1" Type="Int32" />
+          <Property Name="AggregateCount3_1" Type="Int32" />
+          <Property Name="AggregateCountNotRejected3_1" Type="Int32" />
+          <Property Name="StudyMediumState" Type="Int32" />
+          <Property Name="FirstArchiveDate" Type="DateTime" Precision="3" />
+          <Property Name="DateLastStudyModification" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateLastFileChange" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateTimeFileLockExpiration" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StudyHidden" Type="Boolean" />
+          <Property Name="SortedModalities" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityContainer Name="DCMARCH1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblDICOMStudy" EntityType="Self.tblDICOMStudy" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DCMARCH1ModelStoreContainer" CdmEntityContainer="DCMARCH1Entities">
+          <EntitySetMapping Name="tblDICOMStudy">
+            <EntityTypeMapping TypeName="DCMARCH1Model.tblDICOMStudy">
+              <MappingFragment StoreEntitySet="tblDICOMStudy">
+                <ScalarProperty Name="Id1" ColumnName="Id1" />
+                <ScalarProperty Name="C00100010" ColumnName="00100010" />
+                <ScalarProperty Name="C00100020" ColumnName="00100020" />
+                <ScalarProperty Name="C00100021" ColumnName="00100021" />
+                <ScalarProperty Name="C00100030" ColumnName="00100030" />
+                <ScalarProperty Name="C00100040" ColumnName="00100040" />
+                <ScalarProperty Name="C00080020" ColumnName="00080020" />
+                <ScalarProperty Name="C00080030" ColumnName="00080030" />
+                <ScalarProperty Name="C00080050" ColumnName="00080050" />
+                <ScalarProperty Name="C00200010" ColumnName="00200010" />
+                <ScalarProperty Name="C0020000D" ColumnName="0020000D" />
+                <ScalarProperty Name="C00201000" ColumnName="00201000" />
+                <ScalarProperty Name="C00080090" ColumnName="00080090" />
+                <ScalarProperty Name="C00080061" ColumnName="00080061" />
+                <ScalarProperty Name="C00101000" ColumnName="00101000" />
+                <ScalarProperty Name="C00081030" ColumnName="00081030" />
+                <ScalarProperty Name="C00081050" ColumnName="00081050" />
+                <ScalarProperty Name="C00081060" ColumnName="00081060" />
+                <ScalarProperty Name="C00080080" ColumnName="00080080" />
+                <ScalarProperty Name="C00081010" ColumnName="00081010" />
+                <ScalarProperty Name="C00081040" ColumnName="00081040" />
+                <ScalarProperty Name="C0032000A" ColumnName="0032000A" />
+                <ScalarProperty Name="C00321030" ColumnName="00321030" />
+                <ScalarProperty Name="C00081032" ColumnName="00081032" />
+                <ScalarProperty Name="DateLastAccessed" ColumnName="DateLastAccessed" />
+                <ScalarProperty Name="StudyState" ColumnName="StudyState" />
+                <ScalarProperty Name="StudyIdLibrary" ColumnName="StudyIdLibrary" />
+                <ScalarProperty Name="AggregateCount2_1" ColumnName="AggregateCount2_1" />
+                <ScalarProperty Name="AggregateCount3_1" ColumnName="AggregateCount3_1" />
+                <ScalarProperty Name="AggregateCountNotRejected3_1" ColumnName="AggregateCountNotRejected3_1" />
+                <ScalarProperty Name="StudyMediumState" ColumnName="StudyMediumState" />
+                <ScalarProperty Name="FirstArchiveDate" ColumnName="FirstArchiveDate" />
+                <ScalarProperty Name="DateLastStudyModification" ColumnName="DateLastStudyModification" />
+                <ScalarProperty Name="DateLastFileChange" ColumnName="DateLastFileChange" />
+                <ScalarProperty Name="DateTimeFileLockExpiration" ColumnName="DateTimeFileLockExpiration" />
+                <ScalarProperty Name="StudyHidden" ColumnName="StudyHidden" />
+                <ScalarProperty Name="SortedModalities" ColumnName="SortedModalities" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
