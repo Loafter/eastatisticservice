@@ -33,15 +33,16 @@ namespace WcfJsonRestService
             {
                 //.Where(r => r.C00080020.Value.Date == DateTime.Today)
                 var ret = new ModStatDat[2];
+                var req = dm.tblDICOMStudy.GroupBy(p => p.C00080061);
                 ret[0] = new ModStatDat()
                 {
                     name = "Modality",
-                    data = dm.tblDICOMStudy.GroupBy(p => p.C00080061).Select(g => g.Key).ToArray()
+                    data = req.Select(g => g.Key).ToArray()
                 };
                 ret[1] = new ModStatDat()
                 {
                     name = "Count",
-                    data = dm.tblDICOMStudy.GroupBy(p => p.C00080061).Select(g => g.Count()).ToArray()
+                    data = req.Select(g => g.Count()).ToArray()
                 };
                 return ret;
             };
@@ -53,15 +54,16 @@ namespace WcfJsonRestService
             {
                 //.Where(r => r.C00080020.Value.Date == DateTime.Today)
                 var ret = new ModStatDat[2];
+                var req = dm.tblDICOMStudy.Where(e=>(e.C00080020==DateTime.Today)).GroupBy(p => p.C00101000);
                 ret[0] = new ModStatDat()
                 {
                     name = "Modality",
-                    data = dm.tblDICOMStudy.GroupBy(p => p.C00080061).Select(g => g.Key).ToArray()
+                    data = req.Select(g => g.Key).ToArray()
                 };
                 ret[1] = new ModStatDat()
                 {
                     name = "Count",
-                    data = dm.tblDICOMStudy.GroupBy(p => p.C00080061).Select(g => g.Count()).ToArray()
+                    data = req.Select(g => g.Count()).ToArray()
                 };
                 return ret;
             };
