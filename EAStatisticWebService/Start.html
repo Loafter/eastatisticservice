@@ -74,7 +74,7 @@
                 series: []
             }
 	        
-            $.getJSON("http://localhost:20001/EAStatistic/day_modality.js", function (json) {
+            $.getJSON("http://localhost:20001/EAStatistic/modality_stat.js", function (json) {
                 options.xAxis.categories = json[0]['data'];
                 options.series[0] = json[1];
                 chart = new Highcharts.Chart(options);
