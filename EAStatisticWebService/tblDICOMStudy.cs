@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WcfJsonRestService
+namespace EAStatistic
 {
     using System;
     using System.Collections.Generic;

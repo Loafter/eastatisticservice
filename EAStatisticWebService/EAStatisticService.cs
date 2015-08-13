@@ -1,16 +1,26 @@
 ﻿using System;
 using System.Collections;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.ServiceModel;
 using System.ServiceModel.Web;
 
-namespace WcfJsonRestService
+namespace EAStatistic
 {
     public class ModStatDat
     {
         public string name;
         public IEnumerable data;
+    }
+
+
+    public class DiskStat
+    {
+        public string name;
+        public long data;
     }
     public class EAStatisticService : IEAStatisticService
     {
@@ -25,15 +35,17 @@ namespace WcfJsonRestService
             WebOperationContext.Current.OutgoingResponse.Headers.Add("Access-Control-Allow-Credentials", "false");
         }
 
-        public ModStatDat[] ModalityStat()
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "modality_stat_{from}_{to}.js")]
+        public ModStatDat[] ModalityStat(string from, string to)
         {
-
             this.setCors();
-            using (var dm = new DCMARCH1Entities())
+            var f = DateTime.ParseExact(from, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            var t = DateTime.ParseExact(to, "yyyy-MM-dd" ,CultureInfo.InvariantCulture);
+            using (var dm = new EAStatistic.DCMARCH1Entities())
             {
                 //.Where(r => r.C00080020.Value.Date == DateTime.Today)
+                var req = dm.tblDICOMStudy.Where(r => ((r.C00080020.Value>f) &&(r.C00080020.Value < t))).GroupBy(p => p.C00080061);
                 var ret = new ModStatDat[2];
-                var req = dm.tblDICOMStudy.GroupBy(p => p.C00080061);
                 ret[0] = new ModStatDat()
                 {
                     name = "Modality",
@@ -44,17 +56,22 @@ namespace WcfJsonRestService
                     name = "Count",
                     data = req.Select(g => g.Count()).ToArray()
                 };
+
                 return ret;
             };
         }
-        public ModStatDat[] DeviceDayStat()
+
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "device_stat_{from}_{to}.js")]
+        public ModStatDat[] DeviceDayStat(string from, string to)
         {
             this.setCors();
-            using (var dm = new DCMARCH1Entities())
+            var f = DateTime.ParseExact(from, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            var t = DateTime.ParseExact(to, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            using (var dm = new EAStatistic.DCMARCH1Entities())
             {
                 //.Where(r => r.C00080020.Value.Date == DateTime.Today)
+                var req = dm.tblDICOMStudy.Where(r =>( (r.C00080020.Value > f) && (r.C00080020.Value < t))).GroupBy(p => p.C00081010);
                 var ret = new ModStatDat[2];
-                var req = dm.tblDICOMStudy.Where(e=>(e.C00080020==DateTime.Today)).GroupBy(p => p.C00101000);
                 ret[0] = new ModStatDat()
                 {
                     name = "Modality",
@@ -65,14 +82,20 @@ namespace WcfJsonRestService
                     name = "Count",
                     data = req.Select(g => g.Count()).ToArray()
                 };
+
                 return ret;
             };
         }
-    }
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "disk_stat.js")]
+        public DiskStat[] DiskStat()
+        {
+            this.setCors();
+            return DriveInfo.GetDrives().Select(v => new DiskStat
+            {
+                data = v.TotalFreeSpace*100/v.TotalSize,
+                name = v.Name
+            }).ToArray();
 
-    public class Person
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        }
     }
 }

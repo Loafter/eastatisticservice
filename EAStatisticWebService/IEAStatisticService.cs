@@ -1,19 +1,20 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 
-namespace WcfJsonRestService
+namespace EAStatistic
 {
     [ServiceContract]
     public interface IEAStatisticService
     {
         [OperationContract]
-        [WebInvoke(Method = "GET",ResponseFormat = WebMessageFormat.Json,UriTemplate = "modality_stat.js")]
-        ModStatDat[] ModalityStat();
+        ModStatDat[] ModalityStat(string from, string to);
 
         [OperationContract]
-        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "day_device_stat.js")]
-        ModStatDat[] DeviceDayStat();
+        ModStatDat[] DeviceDayStat(string from, string to);
+        [OperationContract]
+        DiskStat[] DiskStat();
     }
 }

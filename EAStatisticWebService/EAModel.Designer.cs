@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\212402712\Documents\Visual Studio 2015\Projects\WcfJsonRestService\WcfJsonRestService\EAModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\212402712\Documents\eastatisticservice\EAStatisticWebService\EAModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

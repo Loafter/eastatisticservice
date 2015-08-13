@@ -3,14 +3,16 @@
 <html>
 
 <head>
-    <title>Jumbotron</title>
+    <title>Ea Statistic</title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootswatch/3.0.0/journal/bootstrap.min.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="http://code.highcharts.com/modules/exporting.js"></script>
-    <style type="text/css">
+    <script src="https://alimentasalud.googlecode.com/svn-history/r97/trunk/web/js/justgage.1.0.1.min.js"></script>
+    <script src="http://yastatic.net/raphael/2.1.0/raphael.min.js"></script>
+    <style type=" text/css">
         body {
             padding-top: 50px;
             padding-bottom: 20px;
@@ -18,11 +20,10 @@
     </style>
 
     <script type="text/javascript">
-        function loadModStat()
-        {
+        function loadModStat() {
             var options = {
                 chart: {
-                    renderTo: 'container',
+                    renderTo: 'mod_stat_container',
                     type: 'column',
                     marginRight: 130,
                     marginBottom: 25
@@ -40,7 +41,7 @@
                 },
                 yAxis: {
                     title: {
-                        text: 'Requests'
+                        text: 'Count'
                     },
                     plotLines: [{
                         value: 0,
@@ -49,9 +50,9 @@
                     }]
                 },
                 tooltip: {
-                    formatter: function() {
-                        return '<b>'+ this.series.name +'</b><br/>'+
-                        this.x +': '+ this.y;
+                    formatter: function () {
+                        return '<b>' + this.series.name + '</b><br/>' +
+                        this.x + ': ' + this.y;
                     }
                 },
                 legend: {
@@ -73,16 +74,104 @@
                 },
                 series: []
             }
-	        
-            $.getJSON("http://localhost:20001/EAStatistic/modality_stat.js", function (json) {
+
+            $.getJSON("http://localhost:20001/EAStatistic/modality_stat_" + $('#mod_from').val() + "_"+ $('#mod_to').val()+ ".js", function (json) {
                 options.xAxis.categories = json[0]['data'];
                 options.series[0] = json[1];
                 chart = new Highcharts.Chart(options);
             });
         }
-        function onDocumentLoad()
-        {
-           loadModStat()
+
+        function loadDevStat() {
+            var options = {
+                chart: {
+                    renderTo: 'dev_stat_container',
+                    type: 'column',
+                    marginRight: 130,
+                    marginBottom: 80
+                },
+                title: {
+                    text: 'Device statistic',
+                    x: -20 //center
+                },
+                subtitle: {
+                    text: '',
+                    x: -20
+                },
+                xAxis: {
+                    categories: []
+                },
+                yAxis: {
+                    title: {
+                        text: 'Count'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                tooltip: {
+                    formatter: function () {
+                        return '<b>' + this.series.name + '</b><br/>' +
+                        this.x + ': ' + this.y;
+                    }
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'top',
+                    x: -10,
+                    y: 100,
+                    borderWidth: 0
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        dataLabels: {
+                            enabled: true,
+                            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                        }
+                    }
+                },
+                series: []
+            }
+
+            $.getJSON("http://localhost:20001/EAStatistic/device_stat_" + $('#dev_from').val() + "_" + $('#dev_to').val() + ".js", function (json) {
+                options.xAxis.categories = json[0]['data'];
+                options.series[0] = json[1];
+                chart = new Highcharts.Chart(options);
+            });
+        }
+        function loagGauges() {
+            $.ajax({
+                url: "http://localhost:20001/EAStatistic/disk_stat.js",
+                type: "GET",
+                dataType: "json"
+            }).done(function (jsonData) {
+                for (index in jsonData) {
+                    inerHtml = '<div style="float: left" id="' + index + '" class="200x160px"></div>'
+                    $("#gauge_container").append(inerHtml)
+                    var g = new JustGage({
+                        id: index,
+                        value: jsonData[index].data,
+                        min: 0,
+                        max: 100,
+                        title: jsonData[index].name
+                    });
+                }
+             
+            })
+
+        }
+        function updateData() {
+            loadModStat()
+            loadDevStat()
+        }
+        function onDocumentLoad() {
+            loadModStat()
+            loadDevStat()
+            loagGauges()
         }
     </script>
 </head>
@@ -111,14 +200,17 @@
         </div>
     </div>
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-        <div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+    <br/>
+    <br />
+    <br />
+    <div>
+        <input type="date" value="1940-01-01" id="mod_from"><input type="date" value="2018-01-01" id="mod_to">
+        <div id="mod_stat_container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+        <input type="date" value="1940-01-01" id="dev_from"><input type="date" value="2018-01-01"id="dev_to">
+        <div id="dev_stat_container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+        <button onclick="updateData()">Update</button>
     </div>
-    <div class="container">
-        <!-- Example row of columns -->
-        <hr>
-    </div>
-    <!-- /container -->
+    <div id="gauge_container"></div>
 </body>
 
 </html>
